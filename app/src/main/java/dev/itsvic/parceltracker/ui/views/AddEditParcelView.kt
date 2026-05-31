@@ -2,14 +2,21 @@
 package dev.itsvic.parceltracker.ui.views
 
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.sizeIn
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.Button
@@ -123,11 +130,29 @@ fun AddEditParcelView(
             modifier =
                 Modifier.padding(innerPadding).fillMaxWidth().verticalScroll(rememberScrollState()),
             horizontalAlignment = Alignment.CenterHorizontally) {
+          Column(
+              modifier =
+                  Modifier.padding(16.dp).sizeIn(maxWidth = 488.dp).fillMaxWidth(),
+              verticalArrangement = Arrangement.spacedBy(16.dp),
+          ) {
+            Card(
+                modifier = Modifier.fillMaxWidth(),
+                shape = RoundedCornerShape(24.dp),
+                colors = CardDefaults.cardColors(
+                    containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.3f)
+                ),
+                border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.3f))
+            ) {
               Column(
-                  modifier =
-                      Modifier.padding(horizontal = 16.dp).sizeIn(maxWidth = 488.dp).fillMaxWidth(),
-                  verticalArrangement = Arrangement.spacedBy(8.dp),
-              ) {
+                  modifier = Modifier.padding(20.dp),
+                  verticalArrangement = Arrangement.spacedBy(16.dp)) {
+                
+                Text(
+                    text = stringResource(if (isEdit) R.string.edit_parcel else R.string.add_a_parcel),
+                    style = MaterialTheme.typography.titleLarge,
+                    fontWeight = FontWeight.Bold,
+                    color = MaterialTheme.colorScheme.onSurface)
+
                 OutlinedTextField(
                     value = humanName,
                     onValueChange = {
@@ -135,6 +160,13 @@ fun AddEditParcelView(
                       nameError = false
                     },
                     singleLine = true,
+                    leadingIcon = {
+                      Icon(
+                          painterResource(R.drawable.outline_other_admission_24),
+                          contentDescription = null,
+                          tint = MaterialTheme.colorScheme.primary)
+                    },
+                    shape = RoundedCornerShape(12.dp),
                     label = { Text(stringResource(R.string.parcel_name)) },
                     modifier = Modifier.fillMaxWidth(),
                     isError = nameError,
@@ -149,6 +181,13 @@ fun AddEditParcelView(
                       idError = false
                     },
                     singleLine = true,
+                    leadingIcon = {
+                      Icon(
+                          painterResource(R.drawable.outline_local_shipping_24),
+                          contentDescription = null,
+                          tint = MaterialTheme.colorScheme.primary)
+                    },
+                    shape = RoundedCornerShape(12.dp),
                     label = { Text(stringResource(R.string.tracking_id)) },
                     modifier = Modifier.fillMaxWidth(),
                     isError = idError,
@@ -170,6 +209,13 @@ fun AddEditParcelView(
                           Modifier.menuAnchor(ExposedDropdownMenuAnchorType.PrimaryNotEditable)
                               .fillMaxWidth(),
                       readOnly = true,
+                      shape = RoundedCornerShape(12.dp),
+                      leadingIcon = {
+                        Icon(
+                            painterResource(R.drawable.outline_warehouse_24),
+                            contentDescription = null,
+                            tint = MaterialTheme.colorScheme.primary)
+                      },
                       label = { Text(stringResource(R.string.delivery_service)) },
                       trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded) },
                       colors = ExposedDropdownMenuDefaults.outlinedTextFieldColors(),
@@ -203,8 +249,8 @@ fun AddEditParcelView(
                           Text(stringResource(R.string.specify_a_postal_code))
                           Text(
                               stringResource(R.string.specify_postal_code_flavor_text),
-                              fontSize = 14.sp,
-                              lineHeight = 21.sp,
+                              fontSize = 13.sp,
+                              lineHeight = 19.5.sp,
                               color = MaterialTheme.colorScheme.onSurfaceVariant)
                         }
                         Checkbox(
@@ -226,6 +272,13 @@ fun AddEditParcelView(
                             postalCodeError = false
                           },
                           singleLine = true,
+                          shape = RoundedCornerShape(12.dp),
+                          leadingIcon = {
+                            Icon(
+                                painterResource(R.drawable.outline_pin_drop_24),
+                                contentDescription = null,
+                                tint = MaterialTheme.colorScheme.primary)
+                          },
                           label = { Text(stringResource(R.string.postal_code)) },
                           modifier = Modifier.fillMaxWidth(),
                           isError = postalCodeError,
@@ -234,31 +287,38 @@ fun AddEditParcelView(
                                 Text(stringResource(R.string.postal_code_error_text))
                           })
                     }
-
-                Row(horizontalArrangement = Arrangement.End, modifier = Modifier.fillMaxWidth()) {
-                  Button(
-                      onClick = {
-                        val isOk = validateInputs()
-                        if (isOk) {
-                          // data valid, pass it along
-                          onCompleted(
-                              Parcel(
-                                  id = parcel?.id ?: 0,
-                                  humanName = humanName,
-                                  parcelId = trackingId,
-                                  service = service,
-                                  postalCode =
-                                      if (backend?.requiresPostCode == true ||
-                                          (backend?.acceptsPostCode == true && specifyPostalCode))
-                                          postalCode
-                                      else null))
-                        }
-                      }) {
-                        Text(stringResource(if (isEdit) R.string.save else R.string.add_parcel))
-                      }
-                }
               }
             }
+
+            Row(horizontalArrangement = Arrangement.End, modifier = Modifier.fillMaxWidth()) {
+              Button(
+                  modifier = Modifier.fillMaxWidth().height(50.dp),
+                  shape = RoundedCornerShape(16.dp),
+                  onClick = {
+                    val isOk = validateInputs()
+                    if (isOk) {
+                      // data valid, pass it along
+                      onCompleted(
+                          Parcel(
+                              id = parcel?.id ?: 0,
+                              humanName = humanName,
+                              parcelId = trackingId,
+                              service = service,
+                              postalCode =
+                                  if (backend?.requiresPostCode == true ||
+                                      (backend?.acceptsPostCode == true && specifyPostalCode))
+                                      postalCode
+                                  else null))
+                    }
+                  }) {
+                    Text(
+                        stringResource(if (isEdit) R.string.save else R.string.add_parcel),
+                        fontWeight = FontWeight.Bold,
+                        style = MaterialTheme.typography.titleMedium)
+                  }
+            }
+          }
+        }
       }
 }
 

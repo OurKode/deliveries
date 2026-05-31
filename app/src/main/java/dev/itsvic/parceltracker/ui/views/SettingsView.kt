@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 package dev.itsvic.parceltracker.ui.views
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -8,9 +9,13 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.Icon
@@ -99,94 +104,147 @@ fun SettingsView(
       },
       modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
   ) { innerPadding ->
-    Column(Modifier.padding(innerPadding).verticalScroll(rememberScrollState())) {
-      Row(
-          modifier =
-              Modifier.clickable { setUnmeteredOnly(unmeteredOnly.not()) }
-                  .padding(16.dp, 12.dp)
-                  .fillMaxWidth(),
-          horizontalArrangement = Arrangement.SpaceBetween,
-          verticalAlignment = Alignment.CenterVertically,
-      ) {
-        Column(modifier = Modifier.fillMaxWidth(0.8f)) {
-          Text(stringResource(R.string.unmetered_only_setting))
-          Text(
-              stringResource(R.string.unmetered_only_setting_detail),
-              style = MaterialTheme.typography.bodyMedium)
+    Column(
+        modifier = Modifier
+            .padding(innerPadding)
+            .padding(horizontal = 16.dp)
+            .verticalScroll(rememberScrollState()),
+        verticalArrangement = Arrangement.spacedBy(16.dp)) {
+      
+      // Preferences Section
+      Text(
+          text = "Preferences",
+          modifier = Modifier.padding(top = 16.dp, start = 8.dp),
+          style = MaterialTheme.typography.titleMedium,
+          fontWeight = FontWeight.Bold,
+          color = MaterialTheme.colorScheme.primary)
+
+      Card(
+          modifier = Modifier.fillMaxWidth(),
+          shape = RoundedCornerShape(16.dp),
+          colors = CardDefaults.cardColors(
+              containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.3f)
+          ),
+          border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.3f))) {
+        
+        Row(
+            modifier =
+                Modifier.clickable { setUnmeteredOnly(unmeteredOnly.not()) }
+                    .padding(16.dp)
+                    .fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+          Column(modifier = Modifier.fillMaxWidth(0.8f)) {
+            Text(
+                stringResource(R.string.unmetered_only_setting),
+                fontWeight = FontWeight.SemiBold)
+            Text(
+                stringResource(R.string.unmetered_only_setting_detail),
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant)
+          }
+          Switch(checked = unmeteredOnly, onCheckedChange = { setUnmeteredOnly(it) })
         }
-        Switch(checked = unmeteredOnly, onCheckedChange = { setUnmeteredOnly(it) })
       }
 
+      // API Keys Section
       Text(
-          stringResource(R.string.settings_api_keys),
-          modifier = Modifier.padding(16.dp, 16.dp, 16.dp, 2.dp),
-          style = MaterialTheme.typography.bodyMedium,
-          color = MaterialTheme.colorScheme.onSurfaceVariant,
-      )
+          text = stringResource(R.string.settings_api_keys),
+          modifier = Modifier.padding(start = 8.dp),
+          style = MaterialTheme.typography.titleMedium,
+          fontWeight = FontWeight.Bold,
+          color = MaterialTheme.colorScheme.primary)
 
-      OutlinedTextField(
-          binderbyteApiKey,
-          { setValue(BINDERBYTE_API_KEY, it) },
-          modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp).fillMaxWidth(),
-          label = { Text("Binderbyte") },
-          singleLine = true,
-          visualTransformation = PasswordVisualTransformation(),
-      )
+      Card(
+          modifier = Modifier.fillMaxWidth(),
+          shape = RoundedCornerShape(16.dp),
+          colors = CardDefaults.cardColors(
+              containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.3f)
+          ),
+          border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.3f))) {
+        Column(modifier = Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+          OutlinedTextField(
+              value = binderbyteApiKey,
+              onValueChange = { setValue(BINDERBYTE_API_KEY, it) },
+              modifier = Modifier.fillMaxWidth(),
+              label = { Text("Binderbyte API Key") },
+              shape = RoundedCornerShape(12.dp),
+              singleLine = true,
+              visualTransformation = PasswordVisualTransformation(),
+          )
 
-      Text(
-          AnnotatedString.fromHtml(
-              stringResource(R.string.binderbyte_api_key_flavor_text),
-              linkStyles =
-                  TextLinkStyles(
-                      style =
-                          SpanStyle(
-                              textDecoration = TextDecoration.Underline,
-                              color = MaterialTheme.colorScheme.primary))),
-          style = MaterialTheme.typography.bodyMedium,
-          modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp))
-
-      Text(
-          stringResource(R.string.settings_experimental),
-          modifier = Modifier.padding(16.dp, 16.dp, 16.dp, 2.dp),
-          style = MaterialTheme.typography.bodyMedium,
-          color = MaterialTheme.colorScheme.onSurfaceVariant,
-      )
-
-      Row(
-          modifier =
-              Modifier.clickable { setValue(DEMO_MODE, demoMode.not()) }
-                  .padding(16.dp, 12.dp)
-                  .fillMaxWidth(),
-          horizontalArrangement = Arrangement.SpaceBetween,
-          verticalAlignment = Alignment.CenterVertically,
-      ) {
-        Column(modifier = Modifier.fillMaxWidth(0.8f)) {
-          Text(stringResource(R.string.demo_mode))
           Text(
-              stringResource(R.string.demo_mode_detail),
-              style = MaterialTheme.typography.bodyMedium)
+              AnnotatedString.fromHtml(
+                  stringResource(R.string.binderbyte_api_key_flavor_text),
+                  linkStyles =
+                      TextLinkStyles(
+                          style =
+                              SpanStyle(
+                                  textDecoration = TextDecoration.Underline,
+                                  color = MaterialTheme.colorScheme.primary))),
+              style = MaterialTheme.typography.bodyMedium,
+              color = MaterialTheme.colorScheme.onSurfaceVariant)
         }
-        Switch(checked = demoMode, onCheckedChange = { setValue(DEMO_MODE, it) })
       }
 
-      if (BuildConfig.DEBUG)
-          FilledTonalButton(
-              onClick = {
-                context.sendNotification(
-                    Parcel(0xf100f, "Cool stuff", "", null, Service.EXAMPLE),
-                    Status.OutForDelivery,
-                    ParcelHistoryItem(
-                        "The courier has picked up the package", LocalDateTime.now(), ""))
-              },
-              modifier = Modifier.padding(16.dp, 12.dp).fillMaxWidth()) {
-                Text("Send test notification")
-              }
+      // Experimental / Advanced Tools Section
+      Text(
+          text = "Advanced Tools",
+          modifier = Modifier.padding(start = 8.dp),
+          style = MaterialTheme.typography.titleMedium,
+          fontWeight = FontWeight.Bold,
+          color = MaterialTheme.colorScheme.primary)
 
-      LogcatButton(modifier = Modifier.padding(16.dp, 12.dp).fillMaxWidth())
+      Card(
+          modifier = Modifier.fillMaxWidth(),
+          shape = RoundedCornerShape(16.dp),
+          colors = CardDefaults.cardColors(
+              containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.3f)
+          ),
+          border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.3f))) {
+        Column(modifier = Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
+          Row(
+              modifier =
+                  Modifier.clickable { setValue(DEMO_MODE, demoMode.not()) }
+                      .fillMaxWidth(),
+              horizontalArrangement = Arrangement.SpaceBetween,
+              verticalAlignment = Alignment.CenterVertically,
+          ) {
+            Column(modifier = Modifier.fillMaxWidth(0.8f)) {
+              Text(
+                  stringResource(R.string.demo_mode),
+                  fontWeight = FontWeight.SemiBold)
+              Text(
+                  stringResource(R.string.demo_mode_detail),
+                  style = MaterialTheme.typography.bodyMedium,
+                  color = MaterialTheme.colorScheme.onSurfaceVariant)
+            }
+            Switch(checked = demoMode, onCheckedChange = { setValue(DEMO_MODE, it) })
+          }
+
+          if (BuildConfig.DEBUG) {
+            FilledTonalButton(
+                onClick = {
+                  context.sendNotification(
+                      Parcel(0xf100f, "Cool stuff", "", null, Service.EXAMPLE),
+                      Status.OutForDelivery,
+                      ParcelHistoryItem(
+                          "The courier has picked up the package", LocalDateTime.now(), ""))
+                },
+                modifier = Modifier.fillMaxWidth(),
+                shape = RoundedCornerShape(12.dp)) {
+              Text("Send test notification")
+            }
+          }
+
+          LogcatButton(modifier = Modifier.fillMaxWidth())
+        }
+      }
 
       Text(
           "${stringResource(R.string.app_name)} ${BuildConfig.VERSION_NAME}",
-          modifier = Modifier.padding(16.dp, 8.dp),
+          modifier = Modifier.padding(horizontal = 8.dp, vertical = 16.dp),
           style = MaterialTheme.typography.bodySmall,
           color = MaterialTheme.colorScheme.onSurfaceVariant,
       )

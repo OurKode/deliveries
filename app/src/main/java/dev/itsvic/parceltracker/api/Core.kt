@@ -10,9 +10,13 @@ import dev.itsvic.parceltracker.R
 import java.time.Instant
 import java.time.LocalDateTime
 import java.util.TimeZone
+import java.util.concurrent.TimeUnit
+import okhttp3.Cache
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.converter.moshi.MoshiConverterFactory
+import dev.itsvic.parceltracker.ParcelApplication
 
 enum class Service {
   UNDEFINED,
@@ -84,14 +88,30 @@ fun getDeliveryService(service: Service): DeliveryService? {
   }
 }
 
-internal val api_client =
+internal val api_client: OkHttpClient by lazy {
+    val cacheSize = 10L * 1024 * 1024 // 10 MiB
+    val cache = Cache(ParcelApplication.appContext.cacheDir, cacheSize)
+
+    val cacheInterceptor = Interceptor { chain ->
+        val response = chain.proceed(chain.request())
+        response.newBuilder()
+            .header("Cache-Control", "public, max-age=300")
+            .build()
+    }
+
     OkHttpClient.Builder()
+        .cache(cache)
+        .addNetworkInterceptor(cacheInterceptor)
+        .connectTimeout(15, TimeUnit.SECONDS)
+        .readTimeout(15, TimeUnit.SECONDS)
+        .writeTimeout(15, TimeUnit.SECONDS)
         .addInterceptor(
             HttpLoggingInterceptor { Log.d("OkHttp", it) }
                 .setLevel(
                     if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.BODY
                     else HttpLoggingInterceptor.Level.BASIC))
         .build()
+}
 
 internal val api_moshi: Moshi = Moshi.Builder().build()
 internal val api_factory = MoshiConverterFactory.create(api_moshi)
