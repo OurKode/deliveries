@@ -42,8 +42,8 @@ import androidx.compose.ui.unit.dp
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import dev.itsvic.parceltracker.BuildConfig
+import dev.itsvic.parceltracker.BINDERBYTE_API_KEY
 import dev.itsvic.parceltracker.DEMO_MODE
-import dev.itsvic.parceltracker.DHL_API_KEY
 import dev.itsvic.parceltracker.R
 import dev.itsvic.parceltracker.UNMETERED_ONLY
 import dev.itsvic.parceltracker.api.ParcelHistoryItem
@@ -71,7 +71,7 @@ fun SettingsView(
   val coroutineScope = rememberCoroutineScope()
   val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
 
-  val dhlApiKey by context.dataStore.data.map { it[DHL_API_KEY] ?: "" }.collectAsState("")
+  val binderbyteApiKey by context.dataStore.data.map { it[BINDERBYTE_API_KEY] ?: "" }.collectAsState("")
 
   fun <T> setValue(key: Preferences.Key<T>, value: T) {
     coroutineScope.launch { context.dataStore.edit { it[key] = value } }
@@ -125,17 +125,17 @@ fun SettingsView(
       )
 
       OutlinedTextField(
-          dhlApiKey,
-          { setValue(DHL_API_KEY, it) },
+          binderbyteApiKey,
+          { setValue(BINDERBYTE_API_KEY, it) },
           modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp).fillMaxWidth(),
-          label = { Text(stringResource(R.string.service_dhl)) },
+          label = { Text("Binderbyte") },
           singleLine = true,
           visualTransformation = PasswordVisualTransformation(),
       )
 
       Text(
           AnnotatedString.fromHtml(
-              stringResource(R.string.dhl_api_key_flavor_text),
+              stringResource(R.string.binderbyte_api_key_flavor_text),
               linkStyles =
                   TextLinkStyles(
                       style =

@@ -13,4 +13,4 @@ val DEMO_MODE = booleanPreferencesKey("demoMode")
 val UNMETERED_ONLY = booleanPreferencesKey("unmeteredOnly")
 
 // API key settings
-val DHL_API_KEY = stringPreferencesKey("dhlApiKey")
+val BINDERBYTE_API_KEY = stringPreferencesKey("binderbyteApiKey")

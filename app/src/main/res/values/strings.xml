@@ -13,8 +13,8 @@
   <string name="delivery_service">Delivery service</string>
   <string name="demo_mode">Demo mode</string>
   <string name="demo_mode_action_block">Action not allowed in demo mode</string>
+  <string name="binderbyte_api_key_flavor_text">Binderbyte requires an API key for tracking. You can get one from the Binderbyte API dashboard.</string>
   <string name="demo_mode_detail">Shows example parcels for demo purposes. Does not affect user data.</string>
-  <string name="dhl_api_key_flavor_text">DHL requires us to ask users to provide an API key. You can get one for free from &lt;a href=\"https://developer.dhl.com\"&gt;DHL\'s API Developer Portal&lt;/a&gt; and signing up for the \"Shipment Tracking - Unified\" API.</string>
   <string name="donate">Donate</string>
   <string name="dump_logs_button">Dump logs to file</string>
   <string name="edit">Edit</string>
@@ -39,38 +39,9 @@
   <string name="property_weight">Weight</string>
   <string name="repository">Repository</string>
   <string name="save">Save</string>
-  <string name="service_4px" translatable="false">4PX</string>
-  <string name="service_allegro_onebox">Allegro OneBox</string>
-  <string name="service_an_post" translatable="false">An Post</string>
-  <string name="service_belpost">Belpost</string>
-  <string name="service_cainiao" translatable="false">Cainiao</string>
-  <string name="service_dhl" translatable="false">DHL</string>
-  <string name="service_dpd_ger">DPD Germany</string>
-  <string name="service_dpd_uk">DPD UK</string>
-  <string name="service_ekart" translatable="false">eKart</string>
   <string name="service_error_text">You must select a service.</string>
-  <string name="service_evri" translatable="false">Evri</string>
   <string name="service_example">Example Post</string>
-  <string name="service_gls" translatable="false">GLS</string>
-  <string name="service_gls_hungary">GLS Hungary</string>
-  <string name="service_hermes" translatable="false">Hermes</string>
-  <string name="service_hungarian_post">Hungarian Post</string>
-  <string name="service_inpost">InPost</string>
-  <string name="service_nova_poshta">Nova Post</string>
-  <string name="service_orlen_paczka">Orlen Paczka (Poland)</string>
-  <string name="service_packeta" translatable="false">Packeta</string>
-  <string name="service_polish_post">Polish Post</string>
-  <string name="service_poste_italiane">Italian Post</string>
-  <string name="service_postnl" translatable="false">PostNL</string>
-  <string name="service_postnord" translatable="false">PostNord</string>
-  <string name="service_sameday_bg">Sameday Bulgaria</string>
-  <string name="service_sameday_hu">Sameday Hungary</string>
-  <string name="service_sameday_ro">Sameday Romania</string>
-  <string name="service_spx_th">SPX Thailand</string>
-  <string name="service_ukrposhta">Ukrposhta</string>
   <string name="service_undefined">Undefined</string>
-  <string name="service_uniuni" translatable="false">UniUni</string>
-  <string name="service_ups" translatable="false">UPS</string>
   <string name="settings">Settings</string>
   <string name="settings_api_keys">API keys</string>
   <string name="settings_experimental">Experimental</string>
@@ -106,4 +77,28 @@
   <string name="tracking_id_error_text">Tracking ID must not be blank.</string>
   <string name="unmetered_only_setting">Update only on unmetered networks</string>
   <string name="unmetered_only_setting_detail">If enabled, Deliveries will look for parcel updates only on unmetered connections, such as your home Wi-Fi.</string>
+  <string name="service_jne" translatable="false">JNE</string>
+  <string name="service_pos" translatable="false">POS Indonesia</string>
+  <string name="service_jnt" translatable="false">J&amp;T Express</string>
+  <string name="service_jnt_cargo" translatable="false">J&amp;T Cargo</string>
+  <string name="service_sicepat" translatable="false">SiCepat</string>
+  <string name="service_tiki" translatable="false">TIKI</string>
+  <string name="service_anteraja" translatable="false">AnterAja</string>
+  <string name="service_wahana" translatable="false">Wahana</string>
+  <string name="service_ninja" translatable="false">Ninja Xpress</string>
+  <string name="service_lion" translatable="false">Lion Parcel</string>
+  <string name="service_pcp" translatable="false">PCP Express</string>
+  <string name="service_jet" translatable="false">JET Express</string>
+  <string name="service_rex" translatable="false">REX Express</string>
+  <string name="service_first" translatable="false">First Logistics</string>
+  <string name="service_ide" translatable="false">ID Express</string>
+  <string name="service_spx" translatable="false">Shopee Express</string>
+  <string name="service_kgx" translatable="false">KGXpress</string>
+  <string name="service_sap" translatable="false">SAP Express</string>
+  <string name="service_jxe" translatable="false">JX Express</string>
+  <string name="service_rpx" translatable="false">RPX</string>
+  <string name="service_lex" translatable="false">Lazada eLogistics</string>
+  <string name="service_indah_cargo" translatable="false">Indah Cargo</string>
+  <string name="service_dakota" translatable="false">Dakota Cargo</string>
+  <string name="service_kurir_tokopedia" translatable="false">Kurir Rekomendasi Tokopedia</string>
 </resources>

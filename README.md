@@ -2,6 +2,7 @@
 
 Deliveries is an app that lets you track your parcels from various providers with ease.
 
+<!--
 <p align="center">
 <a href="https://play.google.com/store/apps/details?id=dev.itsvic.parceltracker">
 <img src="./.github/play-badge.png" alt="Get it on Google Play" height="48dp">
@@ -21,7 +22,7 @@ Deliveries is an app that lets you track your parcels from various providers wit
 <a href="https://matrix.to/#/#parcel-community:matrix.org">
 <img src="https://img.shields.io/matrix/parcel-community%3Amatrix.org?style=for-the-badge&logo=matrix&color=white" alt="Join the Matrix room">
 </a>
-</p>
+</p> -->
 
 ## Contributing
 
@@ -32,40 +33,31 @@ Similarly, we have `./scripts/sort-strings.sh` to sort translation files by key.
 
 ## Supported services
 
-International:
-- 4PX
-- Cainiao
-- DHL
-- GLS
-- UPS
+This app exclusively uses the [Binderbyte API](https://binderbyte.com/) for tracking and requires users to manually input their own API Key in the Settings menu.
 
-North America:
-- UniUni
+Indonesia (Binderbyte API):
 
-United Kingdom:
-- DPD UK
-- Evri
-
-Europe:
-- Allegro One Box (PL)
-- An Post (IE)
-- Belpost (BY)
-- GLS Hungary
-- Hermes (DE)
-- InPost (PL)
-- Magyar Posta (HU)
-- Nova Post (UA)
-- Orlen Paczka (PL)
-- Packeta
-- Poczta Polska (PL)
-- Poste Italiane (IT)
-- PostNord
-- PostNL (NL)
-- Sameday Bulgaria
-- Sameday Hungary
-- Sameday Romania
-- Ukrposhta (UA)
-
-Asia:
-- eKart (IN)
-- SPX Thailand
+- JNE
+- POS Indonesia
+- J&T Express
+- J&T Cargo
+- SiCepat
+- TIKI
+- AnterAja
+- Wahana
+- Ninja Xpress
+- Lion Parcel
+- PCP Express
+- JET Express
+- REX Express
+- First Logistics
+- ID Express
+- Shopee Express
+- KGXpress
+- SAP Express
+- JX Express
+- RPX
+- Lazada eLogistics
+- Indah Cargo
+- Dakota Cargo
+- Kurir Rekomendasi Tokopedia

@@ -18,44 +18,31 @@ enum class Service {
   UNDEFINED,
   EXAMPLE,
 
-  // International
-  CAINIAO,
-  DHL,
-  GLS,
-  UPS,
-  FPX,
-
-  // North America
-  UNIUNI,
-
-  // United Kingdom
-  DPD_UK,
-  EVRI,
-
-  // Europe
-  AN_POST,
-  BELPOST,
-  DPD_GER,
-  GLS_HUNGARY,
-  HERMES,
-  MAGYAR_POSTA,
-  NOVA_POSHTA,
-  PACKETA,
-  POLISH_POST,
-  POSTE_ITALIANE,
-  POST_NL,
-  SAMEDAY_BG,
-  SAMEDAY_HU,
-  SAMEDAY_RO,
-  UKRPOSHTA,
-  POSTNORD,
-  ALLEGRO_ONEBOX,
-  INPOST,
-  ORLEN_PACZKA,
-
-  // Asia
-  EKART,
-  SPX_TH,
+  // Binderbyte (Indonesia)
+  JNE,
+  POS,
+  JNT,
+  JNT_CARGO,
+  SICEPAT,
+  TIKI,
+  ANTERAJA,
+  WAHANA,
+  NINJA,
+  LION,
+  PCP,
+  JET,
+  REX,
+  FIRST,
+  IDE,
+  SPX,
+  KGX,
+  SAP,
+  JXE,
+  RPX,
+  LEX,
+  INDAH_CARGO,
+  DAKOTA,
+  KURIR_TOKOPEDIA,
 }
 
 val serviceOptions =
@@ -67,39 +54,30 @@ val serviceOptions =
 
 fun getDeliveryService(service: Service): DeliveryService? {
   return when (service) {
-    Service.CAINIAO -> CainiaoDeliveryService
-    Service.DHL -> DhlDeliveryService
-    Service.GLS -> GLSGlobalDeliveryService
-    Service.UPS -> UPSDeliveryService
-    Service.FPX -> FPXDeliveryService
-
-    Service.UNIUNI -> UniUniDeliveryService
-
-    Service.DPD_UK -> DpdUkDeliveryService
-    Service.EVRI -> EvriDeliveryService
-
-    Service.AN_POST -> AnPostDeliveryService
-    Service.BELPOST -> BelpostDeliveryService
-    Service.DPD_GER -> DpdGerDeliveryService
-    Service.GLS_HUNGARY -> GLSHungaryDeliveryService
-    Service.HERMES -> HermesDeliveryService
-    Service.MAGYAR_POSTA -> MagyarPostaDeliveryService
-    Service.NOVA_POSHTA -> NovaPostDeliveryService
-    Service.PACKETA -> PacketaDeliveryService
-    Service.POLISH_POST -> PolishPostDeliveryService
-    Service.POSTE_ITALIANE -> PosteItalianeDeliveryService
-    Service.POST_NL -> PostNLDeliveryService
-    Service.SAMEDAY_BG -> SamedayBulgariaDeliveryService
-    Service.SAMEDAY_HU -> SamedayHungaryDeliveryService
-    Service.SAMEDAY_RO -> SamedayRomaniaDeliveryService
-    Service.UKRPOSHTA -> UkrposhtaDeliveryService
-    Service.POSTNORD -> PostNordDeliveryService
-    Service.ALLEGRO_ONEBOX -> AllegroOneBoxDeliveryService
-    Service.INPOST -> InPostDeliveryService
-    Service.ORLEN_PACZKA -> OrlenPaczkaDeliveryService
-
-    Service.EKART -> EKartDeliveryService
-    Service.SPX_TH -> SPXThailandDeliveryService
+    Service.JNE -> BinderbyteDeliveryService("jne", R.string.service_jne)
+    Service.POS -> BinderbyteDeliveryService("pos", R.string.service_pos)
+    Service.JNT -> BinderbyteDeliveryService("jnt", R.string.service_jnt)
+    Service.JNT_CARGO -> BinderbyteDeliveryService("jnt_cargo", R.string.service_jnt_cargo)
+    Service.SICEPAT -> BinderbyteDeliveryService("sicepat", R.string.service_sicepat)
+    Service.TIKI -> BinderbyteDeliveryService("tiki", R.string.service_tiki)
+    Service.ANTERAJA -> BinderbyteDeliveryService("anteraja", R.string.service_anteraja)
+    Service.WAHANA -> BinderbyteDeliveryService("wahana", R.string.service_wahana)
+    Service.NINJA -> BinderbyteDeliveryService("ninja", R.string.service_ninja)
+    Service.LION -> BinderbyteDeliveryService("lion", R.string.service_lion)
+    Service.PCP -> BinderbyteDeliveryService("pcp", R.string.service_pcp)
+    Service.JET -> BinderbyteDeliveryService("jet", R.string.service_jet)
+    Service.REX -> BinderbyteDeliveryService("rex", R.string.service_rex)
+    Service.FIRST -> BinderbyteDeliveryService("first", R.string.service_first)
+    Service.IDE -> BinderbyteDeliveryService("ide", R.string.service_ide)
+    Service.SPX -> BinderbyteDeliveryService("spx", R.string.service_spx)
+    Service.KGX -> BinderbyteDeliveryService("kgx", R.string.service_kgx)
+    Service.SAP -> BinderbyteDeliveryService("sap", R.string.service_sap)
+    Service.JXE -> BinderbyteDeliveryService("jxe", R.string.service_jxe)
+    Service.RPX -> BinderbyteDeliveryService("rpx", R.string.service_rpx)
+    Service.LEX -> BinderbyteDeliveryService("lex", R.string.service_lex)
+    Service.INDAH_CARGO -> BinderbyteDeliveryService("indah_cargo", R.string.service_indah_cargo)
+    Service.DAKOTA -> BinderbyteDeliveryService("dakota", R.string.service_dakota)
+    Service.KURIR_TOKOPEDIA -> BinderbyteDeliveryService("kurir_tokopedia", R.string.service_kurir_tokopedia)
 
     Service.EXAMPLE -> ExampleDeliveryService
     else -> null
