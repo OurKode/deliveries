@@ -30,7 +30,7 @@ android {
     targetSdk = 35
     // ((major * 100 + minor) * 100 + patch) * 1000 + build
     versionCode = 10502000
-    versionName = "1.5.2"
+    versionName = "1.5.4"
 
     testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
   }
