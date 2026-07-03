@@ -1,28 +1,21 @@
 # Deliveries
 
-Deliveries is an app that lets you track your parcels from various providers with ease.
+Deliveries is an Android application that lets you track your parcels from various providers with ease.
 
-<!--
-<p align="center">
-<a href="https://play.google.com/store/apps/details?id=dev.itsvic.parceltracker">
-<img src="./.github/play-badge.png" alt="Get it on Google Play" height="48dp">
-</a>
-<a href="https://f-droid.org/packages/dev.itsvic.parceltracker">
-<img src="https://f-droid.org/badge/get-it-on.png" alt="Get it on F-Droid" height="48dp">
-</a>
-<a href="https://apt.izzysoft.de/fdroid/index/apk/dev.itsvic.parceltracker">
-<img src="https://gitlab.com/IzzyOnDroid/repo/-/raw/master/assets/IzzyOnDroidButtonGreyBorder_nofont.png" alt="Get it on IzzyOnDroid" height="48dp">
-</a>
-</p>
+## Features
 
-<p align="center">
-<a href="https://discord.gg/QdvpveRTsT">
-<img src="https://img.shields.io/discord/1349842428366159973?style=for-the-badge&logo=discord&logoColor=white&color=%235865F2" alt="Join our Discord">
-</a>
-<a href="https://matrix.to/#/#parcel-community:matrix.org">
-<img src="https://img.shields.io/matrix/parcel-community%3Amatrix.org?style=for-the-badge&logo=matrix&color=white" alt="Join the Matrix room">
-</a>
-</p> -->
+- **Multi-Courier Tracking**: Integrated with the Binderbyte API to track a wide range of Indonesian shipping carriers.
+- **Rich Package Information**: Displays extensive parcel details directly from the API response:
+  - Last updated timestamp.
+  - Package description (replaces user-defined title dynamically if returned by the carrier).
+  - Origin and Destination cities.
+  - Shipper (Sender) and Receiver names.
+  - Chronological tracking history with localized dates and times.
+- **Courier-Specific Validation**: Adapts dynamically to carrier requirements. For example, JNE tracking automatically enables and mandates entering the last 5 digits of the recipient's phone number as verification.
+- **Privacy & Security Focused**:
+  - Excludes sensitive HTTP network logs in production builds.
+  - Redacts PII (like tracking IDs and phone numbers) from device system logs (Logcat).
+  - Disables application backups to prevent unauthorized extraction of the stored API key and parcel logs.
 
 ## Contributing
 
@@ -37,7 +30,7 @@ This app exclusively uses the [Binderbyte API](https://binderbyte.com/) for trac
 
 Indonesia (Binderbyte API):
 
-- JNE
+- JNE (Requires recipient phone number verification)
 - POS Indonesia
 - J&T Express
 - J&T Cargo

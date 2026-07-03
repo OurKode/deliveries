@@ -83,7 +83,24 @@ open class BinderbyteDeliveryService(
             )
         }
 
-        return Parcel(trackingId, history, status)
+        val properties = buildMap {
+            put(R.string.property_last_update, summary.date)
+            val detail = data.detail
+            if (detail != null) {
+                detail.origin?.takeIf { it.isNotBlank() }?.let { put(R.string.property_origin, it) }
+                detail.destination?.takeIf { it.isNotBlank() }?.let { put(R.string.property_destination, it) }
+                detail.shipper?.takeIf { it.isNotBlank() }?.let { put(R.string.property_sender, it) }
+                detail.receiver?.takeIf { it.isNotBlank() }?.let { put(R.string.property_receiver, it) }
+            }
+        }
+
+        return Parcel(
+            id = trackingId,
+            history = history,
+            currentStatus = status,
+            properties = properties,
+            description = summary.desc
+        )
     }
 
     private fun parseBinderbyteDate(dateStr: String): LocalDateTime {
@@ -123,6 +140,7 @@ open class BinderbyteDeliveryService(
     @JsonClass(generateAdapter = true)
     internal data class BinderbyteData(
         val summary: BinderbyteSummary,
+        val detail: BinderbyteDetail?,
         val history: List<BinderbyteHistory>
     )
 
@@ -132,7 +150,16 @@ open class BinderbyteDeliveryService(
         val courier: String,
         val service: String,
         val status: String,
-        val date: String
+        val date: String,
+        val desc: String?
+    )
+
+    @JsonClass(generateAdapter = true)
+    internal data class BinderbyteDetail(
+        val origin: String?,
+        val destination: String?,
+        val shipper: String?,
+        val receiver: String?
     )
 
     @JsonClass(generateAdapter = true)

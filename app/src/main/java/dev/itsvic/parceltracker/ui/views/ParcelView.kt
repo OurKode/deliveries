@@ -87,7 +87,7 @@ fun ParcelView(
   Scaffold(
       topBar = {
         MediumTopAppBar(
-            title = { Text(humanName, fontWeight = FontWeight.Bold) },
+            title = { Text(parcel.description?.takeIf { it.isNotBlank() } ?: humanName, fontWeight = FontWeight.Bold) },
             navigationIcon = {
               IconButton(onClick = onBackPressed) {
                 Icon(Icons.AutoMirrored.Filled.ArrowBack, stringResource(R.string.go_back))

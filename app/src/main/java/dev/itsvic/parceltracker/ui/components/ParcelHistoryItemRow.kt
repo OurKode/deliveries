@@ -76,7 +76,7 @@ fun ParcelHistoryItemRow(item: ParcelHistoryItem, isFirst: Boolean, isLast: Bool
       }
       Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
         Text(
-            item.time.format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT)),
+            item.time.format(DateTimeFormatter.ofPattern("dd MMM yyyy, HH:mm")),
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onSurfaceVariant)
         if (item.location.isNotBlank()) {

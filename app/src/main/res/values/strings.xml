@@ -107,5 +107,13 @@
   <string name="specify_jne_number">Specify verification number</string>
   <string name="specify_jne_number_flavor_text">Optional. Some JNE shipments require the last 5 digits of the recipient\'s phone number to retrieve detailed updates.</string>
   <string name="jne_number_error_text">Verification number must not be blank.</string>
+
+  <!-- Package dynamic properties -->
+  <string name="property_last_update">Last update</string>
+  <string name="property_origin">Origin</string>
+  <string name="property_destination">Destination</string>
+  <string name="property_sender">Sender</string>
+  <string name="property_receiver">Receiver</string>
 </resources>
+
 

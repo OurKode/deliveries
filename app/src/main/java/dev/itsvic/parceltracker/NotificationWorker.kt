@@ -32,13 +32,13 @@ class NotificationWorker(context: Context, params: WorkerParameters) :
 
     withContext(Dispatchers.IO) {
       val parcels = parcelDao.getAllNonArchivedWithStatusAsync()
-      Log.d("NotificationWorker", "Got parcels: $parcels")
+      Log.d("NotificationWorker", "Got parcels count: ${parcels.size}")
 
       for (parcelWithStatus in parcels) {
         val parcel = parcelWithStatus.parcel
         val oldStatus = parcelWithStatus.status
 
-        Log.d("NotificationWorker", "Fetching parcel status for $parcel")
+        Log.d("NotificationWorker", "Fetching parcel status for DB ID: ${parcel.id}, service: ${parcel.service}")
         val apiParcel =
             try {
               applicationContext.getParcel(parcel.parcelId, parcel.postalCode, parcel.service)

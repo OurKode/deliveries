@@ -105,11 +105,14 @@ internal val api_client: OkHttpClient by lazy {
         .connectTimeout(15, TimeUnit.SECONDS)
         .readTimeout(15, TimeUnit.SECONDS)
         .writeTimeout(15, TimeUnit.SECONDS)
-        .addInterceptor(
-            HttpLoggingInterceptor { Log.d("OkHttp", it) }
-                .setLevel(
-                    if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.BODY
-                    else HttpLoggingInterceptor.Level.BASIC))
+        .apply {
+            if (BuildConfig.DEBUG) {
+                addInterceptor(
+                    HttpLoggingInterceptor { Log.d("OkHttp", it) }
+                        .setLevel(HttpLoggingInterceptor.Level.BODY)
+                )
+            }
+        }
         .build()
 }
 
@@ -122,6 +125,7 @@ data class Parcel(
     val history: List<ParcelHistoryItem>,
     val currentStatus: Status,
     val properties: Map<Int, String> = mapOf(),
+    val description: String? = null,
 )
 
 data class ParcelHistoryItem(
