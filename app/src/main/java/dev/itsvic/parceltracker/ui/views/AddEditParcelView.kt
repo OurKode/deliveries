@@ -240,15 +240,15 @@ fun AddEditParcelView(
                       }
                 }
 
-                AnimatedVisibility(backend?.acceptsPostCode == true && !backend.requiresPostCode) {
+                 AnimatedVisibility(backend?.acceptsPostCode == true && !backend.requiresPostCode) {
                   Row(
                       verticalAlignment = Alignment.CenterVertically,
                       horizontalArrangement = Arrangement.SpaceBetween,
                       modifier = Modifier.fillMaxWidth()) {
                         Column(modifier = Modifier.fillMaxWidth(0.8f)) {
-                          Text(stringResource(R.string.specify_a_postal_code))
+                          Text(stringResource(backend?.specifyPostalCodeLabel ?: R.string.specify_a_postal_code))
                           Text(
-                              stringResource(R.string.specify_postal_code_flavor_text),
+                              stringResource(backend?.postalCodeLabelFlavor ?: R.string.specify_postal_code_flavor_text),
                               fontSize = 13.sp,
                               lineHeight = 19.5.sp,
                               color = MaterialTheme.colorScheme.onSurfaceVariant)
@@ -275,16 +275,16 @@ fun AddEditParcelView(
                           shape = RoundedCornerShape(12.dp),
                           leadingIcon = {
                             Icon(
-                                painterResource(R.drawable.outline_pin_drop_24),
+                                painterResource(backend?.postalCodeIcon ?: R.drawable.outline_pin_drop_24),
                                 contentDescription = null,
                                 tint = MaterialTheme.colorScheme.primary)
                           },
-                          label = { Text(stringResource(R.string.postal_code)) },
+                          label = { Text(stringResource(backend?.postalCodeLabel ?: R.string.postal_code)) },
                           modifier = Modifier.fillMaxWidth(),
                           isError = postalCodeError,
                           supportingText = {
                             if (postalCodeError)
-                                Text(stringResource(R.string.postal_code_error_text))
+                                Text(stringResource(backend?.postalCodeErrorLabel ?: R.string.postal_code_error_text))
                           })
                     }
               }

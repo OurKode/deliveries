@@ -5,6 +5,7 @@ import android.content.Context
 import androidx.datastore.preferences.core.Preferences
 import com.squareup.moshi.JsonClass
 import dev.itsvic.parceltracker.BINDERBYTE_API_KEY
+import dev.itsvic.parceltracker.R
 import dev.itsvic.parceltracker.dataStore
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -18,10 +19,25 @@ open class BinderbyteDeliveryService(
     val courierCode: String,
     override val nameResource: Int
 ) : DeliveryService {
-    override val acceptsPostCode: Boolean = false
-    override val requiresPostCode: Boolean = false
+    override val acceptsPostCode: Boolean = courierCode == "jne"
+    override val requiresPostCode: Boolean = courierCode == "jne"
     override val requiresApiKey: Boolean = true
     override val apiKeyPreference: Preferences.Key<String> = BINDERBYTE_API_KEY
+
+    override val postalCodeLabel: Int
+        get() = if (courierCode == "jne") R.string.jne_number else super.postalCodeLabel
+
+    override val postalCodeLabelFlavor: Int
+        get() = if (courierCode == "jne") R.string.specify_jne_number_flavor_text else super.postalCodeLabelFlavor
+
+    override val specifyPostalCodeLabel: Int
+        get() = if (courierCode == "jne") R.string.specify_jne_number else super.specifyPostalCodeLabel
+
+    override val postalCodeErrorLabel: Int
+        get() = if (courierCode == "jne") R.string.jne_number_error_text else super.postalCodeErrorLabel
+
+    override val postalCodeIcon: Int
+        get() = if (courierCode == "jne") R.drawable.outline_deployed_code_account_24 else super.postalCodeIcon
     
     override fun acceptsFormat(trackingId: String): Boolean {
         return trackingId.isNotBlank()
@@ -38,7 +54,7 @@ open class BinderbyteDeliveryService(
         }
 
         val resp = try {
-            service.trackParcel(key, courierCode, trackingId)
+            service.trackParcel(key, courierCode, trackingId, if (courierCode == "jne") postalCode else null)
         } catch (_: HttpException) {
             throw ParcelNonExistentException()
         }
@@ -92,7 +108,8 @@ open class BinderbyteDeliveryService(
         suspend fun trackParcel(
             @Query("api_key") apiKey: String,
             @Query("courier") courier: String,
-            @Query("awb") awb: String
+            @Query("awb") awb: String,
+            @Query("number") number: String?
         ): BinderbyteResponse
     }
 

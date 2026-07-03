@@ -182,6 +182,22 @@ interface DeliveryService {
   val apiKeyPreference: Preferences.Key<String>?
     get() = null
 
+  val postalCodeLabel: Int
+    get() = R.string.postal_code
+
+  val postalCodeLabelFlavor: Int
+    get() = R.string.specify_postal_code_flavor_text
+
+  val specifyPostalCodeLabel: Int
+    get() = R.string.specify_a_postal_code
+
+  val postalCodeErrorLabel: Int
+    get() = R.string.postal_code_error_text
+
+  val postalCodeIcon: Int
+    get() = R.drawable.outline_pin_drop_24
+
+
   suspend fun getParcel(trackingId: String, postCode: String?): Parcel {
     return TODO("DeliveryService does not implement getParcel")
   }
