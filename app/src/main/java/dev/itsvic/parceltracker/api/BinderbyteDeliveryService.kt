@@ -112,13 +112,15 @@ open class BinderbyteDeliveryService(
         }
     }
 
-    private val retrofit = Retrofit.Builder()
-        .baseUrl("https://api.binderbyte.com/v1/")
-        .client(api_client)
-        .addConverterFactory(api_factory)
-        .build()
+    private val retrofit by lazy {
+        Retrofit.Builder()
+            .baseUrl("https://api.binderbyte.com/v1/")
+            .client(api_client)
+            .addConverterFactory(api_factory)
+            .build()
+    }
 
-    private val service = retrofit.create(API::class.java)
+    private val service by lazy { retrofit.create(API::class.java) }
 
     private interface API {
         @GET("track")

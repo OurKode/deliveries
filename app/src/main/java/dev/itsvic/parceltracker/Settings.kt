@@ -5,12 +5,14 @@ import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
+import androidx.datastore.preferences.core.longPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 
 val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
 val DEMO_MODE = booleanPreferencesKey("demoMode")
 val UNMETERED_ONLY = booleanPreferencesKey("unmeteredOnly")
+val SYNC_INTERVAL_MINUTES = longPreferencesKey("syncIntervalMinutes")
 
 // API key settings
 val BINDERBYTE_API_KEY = stringPreferencesKey("binderbyteApiKey")
